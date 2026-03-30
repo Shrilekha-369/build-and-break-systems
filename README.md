@@ -47,21 +47,21 @@ This journey takes a different path:
 ```
 build-and-break-systems/
 │
-├── phase-1-foundations/
-│   ├── week-01-network-basics/
-│   │   ├── day-01-http-vs-https/
+├── phase-1/
+│   ├── week-1/
+│   │   ├── day-1/
 │   │   └── ...
 │
-├── phase-2-web-internals/
+├── phase-2/
 │   └── ...
 │
-├── phase-3-vulnerabilities/
+├── phase-3/
 │   └── ...
 │
-├── phase-4-systems/
+├── phase-4/
 │   └── ...
 │
-├── phase-5-exploitation/
+├── phase-5/
 │   └── ...
 ```
 
