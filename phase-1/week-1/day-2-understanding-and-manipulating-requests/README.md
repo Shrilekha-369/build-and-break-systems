@@ -1,82 +1,124 @@
-# Day 2 — Understanding HTTP Requests
+# 📅 Day 2 – Understanding and Manipulating HTTP Requests
 
-## Objective
-Break down HTTP requests and understand how browsers communicate with servers.
+## 🎯 Objective
 
----
-
-## What I Did
-
-- Intercepted live traffic using Burp Suite
-- Analyzed raw HTTP requests
-- Observed server responses
-- Identified key headers and their roles
-- Experimented with modifying requests
+Learn how HTTP requests work and how modifying them affects server responses using Burp Suite.
 
 ---
 
-## Key Learning
+## 🛠 Tools Used
 
-An HTTP request is made up of:
-
-- Method (GET / POST)
-- Path (/)
-- Protocol (HTTP/1.1 or HTTP/2)
-- Headers (Host, User-Agent, etc.)
-- Body (optional)
+* Burp Suite Community Edition
+* Google Chrome
 
 ---
 
-## Evidence
+## 🔍 What I Did
 
-### HTTP History View
-![HTTP History](images/img1-http-history.png)
+### 1️⃣ Captured a Normal Request
 
----
+* Intercepted a request to `https://www.google.com`
+* Observed standard headers and structure
+* Response: **200 OK**
 
-### Raw Request Captured
-![Original Request](images/img2-original-request.png)
-
----
-
-### Server Rejecting Request (400 Bad Request)
-![400 Error](images/img3-400-bad-request.png)
+![HTTP History](images/01-http-history-original-request.png)
 
 ---
 
-### Successful Request via Repeater
-![200 OK](images/img4-repeater-success.png)
+### 2️⃣ Added Custom Header
+
+* Added:
+
+  ```
+  X-Day-2-Test: working
+  ```
+* Sent request via Repeater
+
+🔎 Result:
+
+* Received **400 Bad Request**
+
+![400 Bad Request](images/02-custom-header-400-bad-request.png)
 
 ---
 
-### Header Modification (User-Agent)
-![Header Change](images/img5-header-modification.png)
+### 3️⃣ Resent Request (Fixed)
+
+* Sent request again after correcting/modifying it
+
+🔎 Result:
+
+* Response returned to **200 OK**
+
+![200 OK](images/03-repeater-success-200-ok.png)
 
 ---
 
-### Host Header Manipulation
-![Host Header](images/img6-host-header-change.png)
+### 4️⃣ Modified User-Agent
+
+* Changed:
+
+  ```
+  User-Agent: hacker-test
+  ```
+
+🔎 Result:
+
+* Server still returned **200 OK**
+
+![User-Agent Modification](images/04-user-agent-modification.png)
 
 ---
 
-## Key Insight
+### 5️⃣ Removed Header
 
-> The server does not trust the browser — it trusts the HTTP request.
+* Removed:
 
-If you control the request → you control how the server behaves.
+  ```
+  Sec-Fetch-Site
+  ```
 
----
+🔎 Result:
 
-## Skills Built
+* Request still worked (**200 OK**)
 
-- Reading raw HTTP requests
-- Understanding headers and their purpose
-- Observing server responses
-- Identifying request structure
-- Basic request manipulation
+![Header Removal](images/05-header-removal-sec-fetch-site.png)
 
 ---
 
-## Next Step
+### 6️⃣ Changed Host Header
 
-Move from understanding requests → actively sending and manipulating them (Day 3).
+* Modified:
+
+  ```
+  Host: evil.com
+  ```
+
+🔎 Result:
+
+* Received **404 Not Found**
+
+![Host Header](images/06-host-header-manipulation.png)
+
+---
+
+## 🧠 Key Learnings
+
+* HTTP requests are sensitive to certain headers
+* Some headers are optional, others are critical
+* Improper modifications can break requests
+* The **Host header** is crucial for routing
+* Burp Suite Repeater allows precise manual testing
+
+---
+
+## 🚀 Summary
+
+This day focused on understanding how web servers react to modified requests.
+These skills are essential for:
+
+* Web security testing
+* Bug bounty hunting
+* Understanding real-world vulnerabilities
+
+---
