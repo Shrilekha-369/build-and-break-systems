@@ -1,114 +1,82 @@
-# Day 2 — Understanding & Manipulating HTTP Requests
+# Day 2 — Understanding HTTP Requests
 
 ## Objective
-Move from passive observation → active control of HTTP requests.
-
----
-
-## Key Idea
-
-A request is not fixed.
-
-It is a **set of controllable inputs** that directly influence server behavior.
+Break down HTTP requests and understand how browsers communicate with servers.
 
 ---
 
 ## What I Did
 
-- Intercepted requests using Burp Suite
-- Sent requests to Repeater
-- Modified headers manually
-- Observed how the server responded to each change
+- Intercepted live traffic using Burp Suite
+- Analyzed raw HTTP requests
+- Observed server responses
+- Identified key headers and their roles
+- Experimented with modifying requests
 
 ---
 
-## Key Experiments
+## Key Learning
 
-### 1. Baseline Request
-- Sent original request without modification
-- Received `200 OK`
+An HTTP request is made up of:
 
-This established a **control response**
-
----
-
-### 2. Modified User-Agent
-
-Changed:
-
-User-Agent: Mozilla/5.0 ...
-
-To:
-
-User-Agent: hacker-test
-
-**Result:**
-- Response still `200 OK`
-
-**Insight:**
-- User-Agent is not strictly validated
-- Can often be spoofed
+- Method (GET / POST)
+- Path (/)
+- Protocol (HTTP/1.1 or HTTP/2)
+- Headers (Host, User-Agent, etc.)
+- Body (optional)
 
 ---
 
-### 3. Removed Headers
+## Evidence
 
-Removed a non-critical header like:
-- `Sec-Fetch-Site`
-
-**Result:**
-- Server still responded normally
-
-**Insight:**
-- Not all headers are required
-- Some are optional metadata
+### HTTP History View
+![HTTP History](images/img1-http-history.png)
 
 ---
 
-### 4. Modified Host Header
+### Raw Request Captured
+![Original Request](images/img2-original-request.png)
 
-Changed:
+---
 
-Host: www.google.com
+### Server Rejecting Request (400 Bad Request)
+![400 Error](images/img3-400-bad-request.png)
 
-To:
+---
 
-Host: evil.com
+### Successful Request via Repeater
+![200 OK](images/img4-repeater-success.png)
 
-**Result:**
-- Response changed to `404 Not Found`
+---
 
-**Insight:**
-- Server routing depends on Host header
-- Host header influences application behavior
+### Header Modification (User-Agent)
+![Header Change](images/img5-header-modification.png)
+
+---
+
+### Host Header Manipulation
+![Host Header](images/img6-host-header-change.png)
 
 ---
 
 ## Key Insight
 
-> Small changes in a request can lead to completely different server responses.
+> The server does not trust the browser — it trusts the HTTP request.
+
+If you control the request → you control how the server behaves.
 
 ---
 
-## Skills Built Today
+## Skills Built
 
-- Using Repeater for controlled testing
-- Understanding request structure
-- Identifying critical vs non-critical headers
-- Observing server-side validation behavior
-
----
-
-## Why This Matters (Offensive Security)
-
-If you can control the request:
-→ You can influence the server  
-
-If you can influence the server:
-→ You can find vulnerabilities  
+- Reading raw HTTP requests
+- Understanding headers and their purpose
+- Observing server responses
+- Identifying request structure
+- Basic request manipulation
 
 ---
 
 ## Next Step
 
-Move from modifying requests → crafting and replaying them deliberately.
+Move from understanding requests → actively sending and manipulating them (Day 3).
