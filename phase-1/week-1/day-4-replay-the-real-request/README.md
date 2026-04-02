@@ -23,21 +23,21 @@ Replay and manipulate real authentication requests to identify weaknesses in log
 ### 1. Capture Real Request
 Captured a valid login request using Burp Proxy.
 
-📸 captured_login_request.png
+![Captured Login Request](images/captured_login_request.png)
 
 ---
 
 ### 2. Setup Username Enumeration
 Configured Intruder (Sniper attack) on the `username` parameter.
 
-📸 intruder_username_setup.png
+![Intruder Username Setup](images/intruder_username_setup.png)
 
 ---
 
 ### 3. Analyze Responses
 Sent multiple usernames and compared responses.
 
-📸 username_enumeration_results.png
+![Username Enumeration Results](images/username_enumeration_results.png)
 
 ---
 
@@ -50,14 +50,14 @@ Observed a response change:
 acceso
 
 
-📸 valid_username_identified.png
+![Valid Username Identified](images/valid_username_identified.png)
 
 ---
 
 ### 5. Setup Password Attack
 Performed second Intruder attack on `password` using the valid username.
 
-📸 intruder_password_setup.png
+![Intruder Password Setup](images/intruder_password_setup.png)
 
 ---
 
@@ -66,14 +66,14 @@ Observed key indicator:
 - `HTTP 302 Found`
 - Redirect to `/my-account`
 
-📸 successful_login_302.png
+![Successful Login 302](images/successful_login_302.png)
 
 ---
 
 ### 7. Confirm Account Access
 Successfully accessed authenticated user dashboard.
 
-📸 lab_solved_account_access.png
+![Lab Solved](images/lab_solved_account_access.png)
 
 ---
 
