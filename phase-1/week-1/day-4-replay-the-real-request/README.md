@@ -1,80 +1,102 @@
-📅 Day 4 – Replay the Real Request
-
-🎯 Objective  
-Learn how to capture, replay, and exploit real HTTP requests to break authentication logic.
-
-🛠 Tools Used  
-- Burp Suite Community Edition (Proxy, Repeater, Intruder)
-- Google Chrome
+# 📅 Day 4 — Replay the Real Request
 
 ---
 
-🔍 What I Did  
-
-1️⃣ Captured Login Request  
-- Intercepted POST /login request  
-- Observed parameters:
-  username, password  
-- Identified cookies and headers used in authentication  
+## 🎯 Objective
+Replay and manipulate real authentication requests to identify weaknesses in login logic and exploit them.
 
 ---
 
-2️⃣ Sent Request to Intruder  
-- Replayed captured request  
-- Prepared it for automated testing  
+## 🛠 Tools Used
+- Burp Suite (Proxy, Repeater, Intruder)
+- Web Security Academy Lab
 
 ---
 
-3️⃣ Username Enumeration  
-- Used Intruder with username wordlist  
-- Kept password constant  
-
-🔎 Observation:
-- "Invalid username" → user does not exist  
-- "Incorrect password" → VALID username  
-
-✔ Identified valid username: `acceso`
+## 🧪 Lab
+**Username Enumeration via Different Responses**
 
 ---
 
-4️⃣ Password Brute Force  
-- Fixed username = acceso  
-- Used password wordlist in Intruder  
+## 🔍 Execution Flow
 
-🔎 Observation:
-- 200 OK → login failed  
-- 302 Found → login success  
+### 1. Capture Real Request
+Captured a valid login request using Burp Proxy.
 
-✔ Identified password via response behavior  
+📸 captured_login_request.png
 
 ---
 
-5️⃣ Successful Authentication  
-- Server returned:
-  - 302 Redirect to /my-account  
-  - Set-Cookie: session=...  
+### 2. Setup Username Enumeration
+Configured Intruder (Sniper attack) on the `username` parameter.
 
-- Accessed user dashboard successfully  
+📸 intruder_username_setup.png
 
 ---
 
-🧠 Key Learnings  
+### 3. Analyze Responses
+Sent multiple usernames and compared responses.
 
-- Authentication logic can leak information via responses  
-- Status codes (200 vs 302) are critical indicators  
-- Intruder enables automated attack execution  
-- Session cookies represent authenticated identity  
-- Real-world attacks rely on subtle response differences  
+📸 username_enumeration_results.png
 
 ---
 
-🚀 Summary  
+### 4. Identify Valid Username
+Observed a response change:
+- `Invalid username` → `Incorrect password`
 
-This day focused on replaying and exploiting real HTTP requests.  
-By combining enumeration and brute force techniques, I was able to:
+✔ Valid username discovered:
 
-✔ Identify a valid user  
-✔ Discover the correct password  
-✔ Gain authenticated access  
+acceso
 
-This demonstrates how weak authentication mechanisms can be exploited in real-world applications.
+
+📸 valid_username_identified.png
+
+---
+
+### 5. Setup Password Attack
+Performed second Intruder attack on `password` using the valid username.
+
+📸 intruder_password_setup.png
+
+---
+
+### 6. Detect Successful Login
+Observed key indicator:
+- `HTTP 302 Found`
+- Redirect to `/my-account`
+
+📸 successful_login_302.png
+
+---
+
+### 7. Confirm Account Access
+Successfully accessed authenticated user dashboard.
+
+📸 lab_solved_account_access.png
+
+---
+
+## 🧠 Key Learnings
+
+- Response differences can expose valid usernames  
+- Authentication logic often leaks information  
+- Intruder enables efficient brute-force workflows  
+- HTTP status codes (e.g., 302) are critical success indicators  
+
+---
+
+## 🚀 Summary
+
+This exercise demonstrates a complete attack chain:
+
+
+Request Capture → Enumeration → Credential Attack → Account Access
+
+
+A common real-world vulnerability pattern in web applications.
+
+---
+
+## 📌 Status
+✅ Lab Solved
