@@ -6,7 +6,7 @@
 
 ## 🎯 Mission
 
-This repository documents my journey to mastering systems from first principles — spanning networking, web, operating systems, and security.
+This repository documents my journey to mastering systems from first principles — spanning networking, web, operating systems, security, etc.
 
 The goal is not just to *use tools*, but to:
 
